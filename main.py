@@ -3,6 +3,7 @@ import telebot
 import time
 import subprocess
 import config
+import api
 
 TOKEN = config.TOKEN
 bot = telebot.TeleBot(TOKEN)
@@ -23,6 +24,12 @@ def run_command(message):
     # output = message.text.split(' ')[1]
     bot.send_message(message.chat.id, output)
     print('handle ' + message.text[5:] + ' success!')
+
+
+@bot.message_handler(commands=['status'])
+def check_supervisor(message):
+    bot.reply_to(message, str(api.getAllProcessInfo()))
+
 
 if __name__ == '__main__':
     bot.polling()
