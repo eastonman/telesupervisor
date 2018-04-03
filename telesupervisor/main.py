@@ -1,5 +1,6 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 import telebot
-# import os
 import time
 import subprocess
 import config
@@ -11,11 +12,14 @@ bot = telebot.TeleBot(TOKEN)
 
 @bot.message_handler(commands=['start', 'help'])
 def send_welcome(message):
-    bot.reply_to(message, "Howdy, how are you doing?")
+    bot.reply_to(message, "This bot helps you monitor supervisord status")
 
 
 @bot.message_handler(commands=['run'])
 def run_command(message):
+    """
+    Run command read from telegram messgae /run *
+    """
     # pop_instance = subprocess.Popen(message.text[5:])
     # time.sleep(0.5)
     # pop_instance.kill()
