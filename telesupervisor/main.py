@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import telebot
+from telebot import types
 import time
 import subprocess
 import config
@@ -30,11 +31,34 @@ def run_command(message):
     print('handle ' + message.text[5:] + ' success!')
 
 
-@bot.message_handler(commands=['status'])
-def check_supervisor(message):
-    bot.reply_to(message, str(api.getAllProcessInfo()))
+@bot.message_handler(commands=['getAllProcessInfo'])
+def get_all_process_info(message):
+    name = api.getAllProcessInfo()[0]['name']
+    statename = api.getAllProcessInfo()[0]['statename']
+    # description = api.getAllProcessInfo()[0]['description']
+    bot.reply_to(message, name + '    ' + statename)
+
+
+@bot.message_handler(commands=['getProcessInfo'])
+def get_process_info(message):
+    try:
+        process_name = message.text[16:]
+    except:
+        bot.reply_to(message, 'Error')
+    if process_name == '':
+        bot.reply_to(message, 'Error! Please provide valid process name.')
+    else:
+        try:
+            api_data = api.getProcessInfo(process_name)
+        except:
+            bot.reply_to(message, 'Error! Please provide valid process name.')
+            return 
+        name = api_data['name']
+        statename = api_data['statename']
+        description = api_data['description']
+        bot.reply_to(message, name + '    ' + statename + '\n' + description)
 
 
 if __name__ == '__main__':
-    bot.polling()
+    bot.polling(none_stop=True)
 
