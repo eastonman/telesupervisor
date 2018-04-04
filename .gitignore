@@ -105,3 +105,7 @@ sftp-config.json
 
 # config TOKEN
 config.py
+
+# db data
+telesupervisor/db.json
+telesupervisor/db.py

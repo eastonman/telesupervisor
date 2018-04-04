@@ -6,6 +6,7 @@ import time
 import subprocess
 import config
 import api
+from apscheduler.schedulers.background import BackgroundScheduler
 
 TOKEN = config.TOKEN
 bot = telebot.TeleBot(TOKEN)
@@ -60,5 +61,9 @@ def get_process_info(message):
 
 
 if __name__ == '__main__':
+
+    scheduler = BackgroundScheduler()
+    scheduler.add_job(bot_warn,'interval', minutes=1)
+    scheduler.start()
     bot.polling(none_stop=True)
 
