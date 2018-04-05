@@ -5,12 +5,19 @@ from telebot import types
 import time
 import subprocess
 from apscheduler.schedulers.background import BackgroundScheduler
+import logging
 import config
 import api
 import check
 
 TOKEN = config.TOKEN
 bot = telebot.TeleBot(TOKEN)
+
+LOG_FORMAT = "%(asctime)s - %(levelname)s - %(message)s"
+DATE_FORMAT = "%Y/%d/%m %H:%M:%S %p"
+
+logging.basicConfig(filename='tele.log', level=logging.DEBUG, format=LOG_FORMAT, datefmt=DATE_FORMAT)
+
 
 
 @bot.message_handler(commands=['start', 'help'])
