@@ -6,6 +6,7 @@ import time
 import subprocess
 import config
 import api
+import check
 from apscheduler.schedulers.background import BackgroundScheduler
 
 TOKEN = config.TOKEN
@@ -63,7 +64,7 @@ def get_process_info(message):
 if __name__ == '__main__':
 
     scheduler = BackgroundScheduler()
-    scheduler.add_job(bot_warn,'interval', minutes=1)
+    scheduler.add_job(check.check_supervisor_process_status,'interval', minutes=1)
     scheduler.start()
     bot.polling(none_stop=True)
 
