@@ -4,10 +4,10 @@ import telebot
 from telebot import types
 import time
 import subprocess
+from apscheduler.schedulers.background import BackgroundScheduler
 import config
 import api
 import check
-from apscheduler.schedulers.background import BackgroundScheduler
 
 TOKEN = config.TOKEN
 bot = telebot.TeleBot(TOKEN)
