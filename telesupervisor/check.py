@@ -3,8 +3,9 @@ import json
 import pickle
 
 def write_database(data):
-    db = open("db.json", 'w')
-    json.dump(data, db)
+    db = open("db.pkl", 'w')
+    pickle.dump(data, db)
+    db.close()
 
 
 def check_supervisor_process_status():
@@ -33,7 +34,7 @@ def check_supervisor_process_status():
     return 0
 
 
-def read_database(): 
+def read_database():
     try:
         db = open("db.pkl", 'r')
     except IOError:
