@@ -1,6 +1,6 @@
 import api
 import json
-
+import pickle
 
 def write_database(data):
     db = open("db.json", 'w')
@@ -35,15 +35,15 @@ def check_supervisor_process_status():
 
 def read_database(): 
     try:
-        db = open("db.json", 'r')
+        db = open("db.pkl", 'r')
     except IOError:
         logging.warning('File db.json is not accessible.')
-        db = open("db.json", 'w')
+        db = open("db.pkl", 'w')
         db.close()
         logging.warning('Automatically create db.json')
         return 1
     try:
-        data = json.loads(db.read())
+        data = pickle.load(db)
     except:
         return ''
     return data
